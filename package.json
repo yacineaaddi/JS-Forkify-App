@@ -1,0 +1,25 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yacineaaddi/JS-Forkify-App.git"
+  },
+  "author": "Jonas Schedtmann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yacineaaddi/JS-Forkify-App/issues"
+  },
+  "homepage": "https://github.com/yacineaaddi/JS-Forkify-App#readme",
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0"
+  }
+}
