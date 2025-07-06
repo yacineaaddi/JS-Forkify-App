@@ -1,4 +1,6 @@
 import icons from 'url:../../img/icons.svg';
+import { Fraction } from 'fractional';
+console.log(Fraction);
 
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
@@ -8,19 +10,19 @@ class RecipeView {
     this.#data = data;
     const markup = this.#generateMarkup();
     this.#clear();
-    recipeContainer.insertAdjacentHTML('afterbegin', markup);
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   #clear() {
     this.#parentElement.innerHTML = '';
   }
 
-  renderSpinner = function (parentEl) {
+  renderSpinner = function () {
     const markup = ` <div class="spinner"><svg> <use href="${icons}#icon-loader"></use>
         </svg>
         </div>`;
-    parentEl.innerHTML = '';
-    parentEl.insertAdjacentHTML('afterbegin', markup);
+    this.#parentElement.innerHTML = '';
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   };
 
   #generateMarkup() {
@@ -87,7 +89,9 @@ class RecipeView {
               <svg class="recipe__icon">
                 <use href="${icons}#icon-check"></use>
               </svg>
-              <div class="recipe__quantity">${ing.quantity}</div>
+              <div class="recipe__quantity">${new Fraction(
+                ing.quantity
+              ).toString()}</div>
               <div class="recipe__description">
                 <span class="recipe__unit">${ing.unit}</span>
                 ${ing.description}
