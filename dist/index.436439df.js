@@ -469,9 +469,6 @@ const timeout = function(s) {
         }, s * 1000);
     });
 };
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-///////////////////////////////////////
 const showRecipe = async function() {
     try {
         const id = window.location.hash.slice(1);
