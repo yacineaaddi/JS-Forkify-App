@@ -8,7 +8,10 @@ export const state = {
 
 export const loadrecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    /*const data = await getJSON(`${API_URL}/${id}`);*/
+    const data = await getJSON(
+      'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e897b'
+    );
     const { recipe } = data.data;
     state.recipe = {
       id: recipe.id,
