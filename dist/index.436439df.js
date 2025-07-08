@@ -473,7 +473,7 @@ const controlRecipes = async function() {
         // 2 - Rendering recipe
         _recipeViewJsDefault.default.render(_modelJs.state.recipe);
     } catch (err) {
-        alert(err);
+        _recipeViewJsDefault.default.renderError();
     }
 };
 const init = function() {
@@ -19579,7 +19579,7 @@ const state = {
 };
 const loadrecipe = async function(id) {
     try {
-        /*const data = await getJSON(`${API_URL}/${id}`);*/ const data = await _helpers.getJSON('http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e897b');
+        /*const data = await getJSON(`${API_URL}/${id}`);*/ const data = await _helpers.getJSON('http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e897baaa');
         const { recipe  } = data.data;
         state.recipe = {
             id: recipe.id,
@@ -19592,7 +19592,7 @@ const loadrecipe = async function(id) {
             ingredients: recipe.ingredients
         };
     } catch (err) {
-        console.log(`${err}`);
+        throw err;
     }
 };
 
@@ -19675,6 +19675,8 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
+    #errorMessage = 'No recipes found for your query. Please try again!';
+    #message = '';
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -19684,11 +19686,21 @@ class RecipeView {
      #clear() {
         this.#parentElement.innerHTML = '';
     }
-    renderSpinner = function(parentEl) {
+    renderSpinner() {
         const markup = ` <div class="spinner"><svg> <use href="${_iconsSvgDefault.default}#icon-loader"></use>\n        </svg>\n        </div>`;
-        this.#parentElement.innerHTML = '';
+        this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    };
+    }
+    renderError(message = this.#errorMessage) {
+        const markup = `<div class="error">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderMessage(message = this.#message) {
+        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
+        this.#clear;
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
     addHandlerRender(handler) {
         [
             'hashchange',
