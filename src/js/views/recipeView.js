@@ -16,7 +16,7 @@ class RecipeView {
   #clear() {
     this.#parentElement.innerHTML = '';
   }
-
+ 
   renderSpinner() {
     
     const markup = ` <div class="spinner"><svg> <use href="${icons}#icon-loader"></use>
