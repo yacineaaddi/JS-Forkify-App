@@ -494,7 +494,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","./model.js":"6Yfb5","./views/recipeView.js":"9q0mt","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./views/searchView.js":"51HTZ"}],"eIyVg":[function(require,module,exports) {
+},{"core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","./model.js":"6Yfb5","./views/recipeView.js":"9q0mt","./views/searchView.js":"51HTZ","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"eIyVg":[function(require,module,exports) {
 'use strict';
 require('../modules/es.symbol');
 require('../modules/es.symbol.description');
@@ -19598,7 +19598,7 @@ const state = {
 };
 const loadrecipe = async function(id) {
     try {
-        const data = await _helpers.getJSON(`${_config.API_URL}${id}`);
+        const data = await _helpers.getJSON(`${_config.API_URL}/${id}`);
         /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/ const { recipe  } = data.data;
@@ -19643,7 +19643,7 @@ parcelHelpers.export(exports, "API_URL", ()=>API_URL
 );
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC
 );
-const API_URL = 'http://forkify-api.herokuapp.com/api/v2/recipes/';
+const API_URL = 'http://forkify-api.herokuapp.com/api/v2/recipes';
 const TIMEOUT_SEC = 10;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"JacNc":[function(require,module,exports) {
@@ -19811,7 +19811,7 @@ class SearchView {
     }
     addHandlerSearch(handler) {
         this.#parentEl.addEventListener('submit', function(e) {
-            e.preventDefault;
+            e.preventDefault();
             handler();
         });
     }

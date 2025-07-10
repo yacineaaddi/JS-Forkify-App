@@ -1,4 +1,4 @@
-import { aync } from 'regenerator-runtime';
+import { async } from 'regenerator-runtime';
 import { API_URL } from './config';
 import { getJSON } from './helpers';
 
@@ -12,7 +12,7 @@ export const state = {
 
 export const loadrecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}${id}`);
+    const data = await getJSON(`${API_URL}/${id}`);
     /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/
@@ -46,9 +46,11 @@ export const loadSearchResults = async function (query) {
         image: rec.image_url,
       };
     });
+
     console.log(state.search.results);
   } catch (err) {
     console.log(err);
     throw err;
   }
 };
+
