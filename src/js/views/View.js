@@ -1,4 +1,6 @@
 import icons from 'url:../../img/icons.svg';
+import recipeView from './recipeView.js';
+import resultsView from './resultsView.js';
 
 export default class View {
   _data;

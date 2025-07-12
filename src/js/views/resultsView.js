@@ -10,6 +10,7 @@ class ResultsView extends View {
     return this._data.map(this._generateMarkupPreview).join('');
   }
   _generateMarkupPreview(result) {
+    console.log('success');
     return `<li class="preview">
             <a class="preview__link" href="#${result.id}">
               <figure class="preview__fig">
@@ -18,7 +19,6 @@ class ResultsView extends View {
               <div class="preview__data">
                 <h4 class="preview__title">${result.title}</h4>
                 <p class="preview__publisher">${result.publisher}</p>
-                
               </div>
             </a>
           </li>`;
