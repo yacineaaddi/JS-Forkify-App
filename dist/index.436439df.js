@@ -19809,7 +19809,15 @@ class View {
         const newDom = document.createRange().createContextualFragment(newMarkup);
         const newElements = Array.from(newDom.querySelectorAll('*'));
         const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-        console.log(newElements, curElements);
+        newElements.forEach((newEl, i)=>{
+            const curEl = curElements[i];
+            // Update changed text
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') {
+                console.log(newEl.firstChild.nodeValue.trim());
+                curEl.textContent = newEl.textContent;
+            }
+        // Update changed Attributes
+        });
     }
     _clear() {
         this._parentElement.innerHTML = '';
