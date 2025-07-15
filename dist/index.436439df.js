@@ -500,10 +500,10 @@ const controlPagination = function(goTopage) {
     _resultsViewJsDefault.default.render(_modelJs.getSearchResultPage(goTopage));
     _paginationViewJsDefault.default.render(_modelJs.state.search);
 };
-// Updating Number of servings 
+// Updating Number of servings
 const controlServings = function(newServings) {
     _modelJs.updateServings(newServings);
-    _recipeViewJsDefault.default.render(_modelJs.state.recipe);
+    /*recipeView.render(model.state.recipe);*/ _recipeViewJsDefault.default.update(_modelJs.state.recipe);
 };
 const init = function() {
     _recipeViewJsDefault.default.addHandlerRender(controlRecipes);
@@ -19802,6 +19802,15 @@ class View {
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+        const newDom = document.createRange().createContextualFragment(newMarkup);
+        const newElements = Array.from(newDom.querySelectorAll('*'));
+        const curElements = Array.from(this._parentElement.querySelectorAll('*'));
+        console.log(newElements, curElements);
+    }
     _clear() {
         this._parentElement.innerHTML = '';
     }
@@ -19899,6 +19908,15 @@ class View {
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+        const newDom = document.createRange().createContextualFragment(newMarkup);
+        const newElements = Array.from(newDom.querySelectorAll('*'));
+        const curElements = Array.from(this._parentElement.querySelectorAll('*'));
+        console.log(newElements, curElements);
     }
     _clear() {
         this._parentElement.innerHTML = '';

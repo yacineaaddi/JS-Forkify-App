@@ -47,10 +47,11 @@ const controlPagination = function (goTopage) {
 
   paginationView.render(model.state.search);
 };
-// Updating Number of servings 
+// Updating Number of servings
 const controlServings = function (newServings) {
   model.updateServings(newServings);
-  recipeView.render(model.state.recipe);
+  /*recipeView.render(model.state.recipe);*/
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {
