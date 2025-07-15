@@ -474,9 +474,11 @@ const controlRecipes = async function() {
         console.log(id);
         if (!id) return;
         _recipeViewJsDefault.default.renderSpinner();
-        // 1 - Loading recipe
+        //1  - Updating the result view
+        _resultsViewJsDefault.default.update(_modelJs.getSearchResultPage());
+        // 2 - Loading recipe
         await _modelJs.loadrecipe(id);
-        // 2 - Rendering recipe
+        // 3 - Rendering recipe
         _recipeViewJsDefault.default.render(_modelJs.state.recipe);
         console.log(_modelJs.state.recipe);
     } catch (err) {
@@ -19803,8 +19805,8 @@ class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        this._data = data;
+        /*if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();*/ this._data = data;
         const newMarkup = this._generateMarkup();
         const newDom = document.createRange().createContextualFragment(newMarkup);
         const newElements = Array.from(newDom.querySelectorAll('*'));
@@ -19885,9 +19887,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-var _view = require("./view");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-class ResultsView extends _viewDefault.default {
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class ResultsView extends _viewJsDefault.default {
     _parentElement = document.querySelector('.results');
     _errorMessage = 'No recipes found for your query. Please try again!';
     _message = '';
@@ -19895,61 +19897,13 @@ class ResultsView extends _viewDefault.default {
         return this._data.map(this._generateMarkupPreview).join('');
     }
     _generateMarkupPreview(result) {
-        console.log('success');
-        return `<li class="preview">\n            <a class="preview__link" href="#${result.id}">\n              <figure class="preview__fig">\n                <img src="${result.image}" alt="${result.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${result.title}</h4>\n                <p class="preview__publisher">${result.publisher}</p>\n              </div>\n            </a>\n          </li>`;
+        const id = window.location.hash.slice(1);
+        return `<li class="preview">\n            <a class="preview__link" ${result.id === id ? 'preview__link--active' : ''} href="#${result.id}">\n              <figure class="preview__fig">\n                <img src="${result.image}" alt="${result.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${result.title}</h4>\n                <p class="preview__publisher">${result.publisher}</p>\n              </div>\n            </a>\n          </li>`;
     }
 }
 exports.default = new ResultsView();
 
-},{"url:../../img/icons.svg":"iwCpK","./view":"96b9L","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"96b9L":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-var _recipeViewJs = require("./recipeView.js");
-var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
-var _resultsViewJs = require("./resultsView.js");
-var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
-class View {
-    _data;
-    render(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        this._data = data;
-        const markup = this._generateMarkup();
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
-    update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        this._data = data;
-        const newMarkup = this._generateMarkup();
-        const newDom = document.createRange().createContextualFragment(newMarkup);
-        const newElements = Array.from(newDom.querySelectorAll('*'));
-        const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-        console.log(newElements, curElements);
-    }
-    _clear() {
-        this._parentElement.innerHTML = '';
-    }
-    renderSpinner() {
-        const markup = ` <div class="spinner"><svg> <use href="${_iconsSvgDefault.default}#icon-loader"></use>\n        </svg>\n        </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
-    renderError(message = this._errorMessage) {
-        const markup = `<div class="error">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
-    renderMessage(message = this._message) {
-        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
-        this._clear;
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
-}
-exports.default = View;
-
-},{"url:../../img/icons.svg":"iwCpK","./recipeView.js":"9q0mt","./resultsView.js":"a6WEO","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"51HTZ":[function(require,module,exports) {
+},{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./View.js":"8rtS4"}],"51HTZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
