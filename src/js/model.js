@@ -46,11 +46,10 @@ export const loadSearchResults = async function (query) {
         id: rec.id,
         title: rec.title,
         publisher: rec.publisher,
-        image: rec.image_url,
+        /*image: rec.image_url,*/
       };
     });
     /*state.search.page = 1;*/
-    console.log(state.search.results);
   } catch (err) {
     console.log(err);
     throw err;
