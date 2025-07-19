@@ -19660,7 +19660,8 @@ const loadSearchResults = async function(query) {
             return {
                 id: rec.id,
                 title: rec.title,
-                publisher: rec.publisher
+                publisher: rec.publisher,
+                image: rec.image_url
             };
         });
     /*state.search.page = 1;*/ } catch (err) {
@@ -19694,7 +19695,7 @@ parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC
 );
 parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE
 );
-const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
+const API_URL = 'http://forkify-api.herokuapp.com/api/v2/recipes/';
 const TIMEOUT_SEC = 10;
 const RES_PER_PAGE = 10;
 
@@ -19916,7 +19917,7 @@ class ResultsView extends _viewDefault.default {
     }
     _generateMarkupPreview(result) {
         const id = window.location.hash.slice(1);
-        return `<li class="preview">\n            <a class="preview__link" ${result.id === id ? 'preview__link--active' : ''} href="#${result.id}">\n              <figure class="preview__fig">\n                <img src="" alt="${result.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${result.title}</h4>\n                <p class="preview__publisher">${result.publisher}</p>\n              </div>\n            </a>\n          </li>`;
+        return `<li class="preview">\n            <a class="preview__link" ${result.id === id ? 'preview__link--active' : ''} href="#${result.id}">\n              <figure class="preview__fig">\n                <img src="${result.image}" alt="${result.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${result.title}</h4>\n                <p class="preview__publisher">${result.publisher}</p>\n              </div>\n            </a>\n          </li>`;
     }
 }
 exports.default = new ResultsView();
