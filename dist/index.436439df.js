@@ -19791,12 +19791,11 @@ class RecipeView extends _viewDefault.default {
         this._parentElement.addEventListener('click', function(e) {
             const btn = e.target.closest('.btn--bookmark');
             if (!btn) return;
-            alert('Good');
             handler();
         });
     }
     _generateMarkup() {
-        return `<figure class="recipe__fig">\n          <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />\n          <h1 class="recipe__title">\n            <span>${this._data.title}</span>\n          </h1>\n        </figure>\n\n        <div class="recipe__details">\n          <div class="recipe__info">\n            <svg class="recipe__info-icon">\n              <use href="${_iconsSvgDefault.default}#icon-clock"></use>\n            </svg>\n            <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>\n            <span class="recipe__info-text">minutes</span>\n          </div>\n          <div class="recipe__info">\n            <svg class="recipe__info-icon">\n              <use href="${_iconsSvgDefault.default}#icon-users"></use>\n            </svg>\n            <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>\n            <span class="recipe__info-text">servings</span>\n\n            <div class="recipe__info-buttons">\n              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">\n                <svg>\n                  <use href="${_iconsSvgDefault.default}#icon-minus-circle"></use>\n                </svg>\n              </button>\n              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">\n                <svg>\n                  <use href="${_iconsSvgDefault.default}#icon-plus-circle"></use>\n                </svg>\n              </button>\n            </div>\n          </div>\n\n          <div class="recipe__user-generated">\n          </div>\n          <button class="btn--round btn-bookmark">\n            <svg class="">\n              <use href="${_iconsSvgDefault.default}#icon-bookmark-${this._data.bookmarked ? 'fill' : ''}"></use>\n            </svg>\n          </button>\n        </div>\n\n        <div class="recipe__ingredients">\n          <h2 class="heading--2">Recipe ingredients</h2>\n          <ul class="recipe__ingredient-list">\n           ${this._data.ingredients.map((ing)=>{
+        return `<figure class="recipe__fig">\n          <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />\n          <h1 class="recipe__title">\n            <span>${this._data.title}</span>\n          </h1>\n        </figure>\n\n        <div class="recipe__details">\n          <div class="recipe__info">\n            <svg class="recipe__info-icon">\n              <use href="${_iconsSvgDefault.default}#icon-clock"></use>\n            </svg>\n            <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>\n            <span class="recipe__info-text">minutes</span>\n          </div>\n          <div class="recipe__info">\n            <svg class="recipe__info-icon">\n              <use href="${_iconsSvgDefault.default}#icon-users"></use>\n            </svg>\n            <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>\n            <span class="recipe__info-text">servings</span>\n\n            <div class="recipe__info-buttons">\n              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">\n                <svg>\n                  <use href="${_iconsSvgDefault.default}#icon-minus-circle"></use>\n                </svg>\n              </button>\n              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">\n                <svg>\n                  <use href="${_iconsSvgDefault.default}#icon-plus-circle"></use>\n                </svg>\n              </button>\n            </div>\n          </div>\n\n          <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">\n            <svg>\n              <use href="${_iconsSvgDefault.default}#icon-user"></use>\n            </svg>\n          </div>\n          <button class="btn--round btn--bookmark">\n            <svg class="">\n              <use href="${_iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}">Text</use>\n            </svg>\n          </button>\n        </div>\n\n        <div class="recipe__ingredients">\n          <h2 class="heading--2">Recipe ingredients</h2>\n          <ul class="recipe__ingredient-list">\n           ${this._data.ingredients.map((ing)=>{
             return `<li class="recipe__ingredient">\n              <svg class="recipe__icon">\n                <use href="${_iconsSvgDefault.default}#icon-check"></use>\n              </svg>\n              <div class="recipe__quantity">${/*
                 ing.quantity ? new Fraction(ing.quantity).toString() : ''
               */ ing.quantity}</div>\n              <div class="recipe__description">\n                <span class="recipe__unit">${ing.unit}</span>\n                ${ing.description}\n              </div>\n            </li>`;
@@ -19805,45 +19804,7 @@ class RecipeView extends _viewDefault.default {
 }
 exports.default = new RecipeView();
 
-},{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./view":"96b9L"}],"iwCpK":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8LZRF') + "icons.c097e590.svg";
-
-},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
-"use strict";
-var bundleURL = {
-};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return '/';
-}
-function getBaseURL(url) {
-    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
-    if (!matches) throw new Error('Origin not found');
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"96b9L":[function(require,module,exports) {
+},{"./view":"96b9L","url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"96b9L":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
@@ -19901,7 +19862,45 @@ class View {
 }
 exports.default = View;
 
-},{"url:../../img/icons.svg":"iwCpK","./recipeView.js":"9q0mt","./resultsView.js":"a6WEO","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"a6WEO":[function(require,module,exports) {
+},{"url:../../img/icons.svg":"iwCpK","./recipeView.js":"9q0mt","./resultsView.js":"a6WEO","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"iwCpK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8LZRF') + "icons.c097e590.svg";
+
+},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"a6WEO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
@@ -19922,7 +19921,7 @@ class ResultsView extends _viewDefault.default {
 }
 exports.default = new ResultsView();
 
-},{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./View":"8rtS4"}],"8rtS4":[function(require,module,exports) {
+},{"url:../../img/icons.svg":"iwCpK","./View":"8rtS4","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"8rtS4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
@@ -19947,16 +19946,30 @@ class View {
         const newDom = document.createRange().createContextualFragment(newMarkup);
         const newElements = Array.from(newDom.querySelectorAll('*'));
         const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-        newElements.forEach((newEl, i)=>{
+        /*
+    newElements.forEach((newEl, i) => {
+      const curEl = curElements[i];
+      // Update changed TEXT
+      if (
+        newEl.firstChild?.nodeValue &&
+        newEl.firstChild?.nodeValue !== curEl.firstChild?.nodeValue
+      ) {
+        curEl.textContent = newEl.textContent;
+      }
+      // Update changed ATTRIBUTES
+      if (newEl.firstChild?.nodeValue !== curEl.firstChild?.nodeValue) {
+        Array.from(newEl.attributes).forEach(attr =>
+          curEl.setAttribute(attr.name, attr.value)
+        );
+      }
+    });*/ newElements.forEach((newEl, i)=>{
             const curEl = curElements[i];
-            // Update changed TEXT
-            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') {
-                console.log(newEl.firstChild.nodeValue.trim());
-                curEl.textContent = newEl.textContent;
-            }
-            // Update changed ATTRIBUTES
-            if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>curEl.setAttribute(attr.name, attr.value)
-            );
+            // 1. Update TEXT content if it's changed and not empty
+            if (newEl.firstChild?.nodeType === 3 && newEl.textContent.trim() !== curEl.textContent.trim()) curEl.textContent = newEl.textContent;
+            // 2. Update ATTRIBUTES if changed
+            Array.from(newEl.attributes).forEach((attr)=>{
+                if (curEl.getAttribute(attr.name) !== attr.value) curEl.setAttribute(attr.name, attr.value);
+            });
         });
     }
     _clear() {
@@ -20038,6 +20051,6 @@ class PaginationView extends _viewDefault.default {
 }
 exports.default = new PaginationView();
 
-},{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./view":"96b9L"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire3a11")
+},{"./view":"96b9L","url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire3a11")
 
 //# sourceMappingURL=index.436439df.js.map

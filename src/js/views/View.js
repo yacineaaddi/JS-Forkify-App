@@ -23,25 +23,43 @@ export default class View {
     const newDom = document.createRange().createContextualFragment(newMarkup);
     const newElements = Array.from(newDom.querySelectorAll('*'));
     const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-
+/*
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
       // Update changed TEXT
       if (
-        !newEl.isEqualNode(curEl) &&
-        newEl.firstChild?.nodeValue.trim() !== ''
+        newEl.firstChild?.nodeValue &&
+        newEl.firstChild?.nodeValue !== curEl.firstChild?.nodeValue
       ) {
-        console.log(newEl.firstChild.nodeValue.trim());
         curEl.textContent = newEl.textContent;
       }
       // Update changed ATTRIBUTES
-      if (!newEl.isEqualNode(curEl)) {
+      if (newEl.firstChild?.nodeValue !== curEl.firstChild?.nodeValue) {
         Array.from(newEl.attributes).forEach(attr =>
           curEl.setAttribute(attr.name, attr.value)
         );
       }
+    });*/
+    newElements.forEach((newEl, i) => {
+    const curEl = curElements[i];
+
+    // 1. Update TEXT content if it's changed and not empty
+    if (
+      newEl.firstChild?.nodeType === 3 && // Node.TEXT_NODE
+      newEl.textContent.trim() !== curEl.textContent.trim()
+    ) {
+      curEl.textContent = newEl.textContent;
+    }
+
+    // 2. Update ATTRIBUTES if changed
+    Array.from(newEl.attributes).forEach(attr => {
+      if (curEl.getAttribute(attr.name) !== attr.value) {
+        curEl.setAttribute(attr.name, attr.value);
+      }
     });
-  }
+  });
+}
+
 
   _clear() {
     this._parentElement.innerHTML = '';
