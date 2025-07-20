@@ -23,7 +23,7 @@ export default class View {
     const newDom = document.createRange().createContextualFragment(newMarkup);
     const newElements = Array.from(newDom.querySelectorAll('*'));
     const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-/*
+    /*
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
       // Update changed TEXT
@@ -41,25 +41,24 @@ export default class View {
       }
     });*/
     newElements.forEach((newEl, i) => {
-    const curEl = curElements[i];
+      const curEl = curElements[i];
 
-    // 1. Update TEXT content if it's changed and not empty
-    if (
-      newEl.firstChild?.nodeType === 3 && // Node.TEXT_NODE
-      newEl.textContent.trim() !== curEl.textContent.trim()
-    ) {
-      curEl.textContent = newEl.textContent;
-    }
-
-    // 2. Update ATTRIBUTES if changed
-    Array.from(newEl.attributes).forEach(attr => {
-      if (curEl.getAttribute(attr.name) !== attr.value) {
-        curEl.setAttribute(attr.name, attr.value);
+      // 1. Update TEXT content if it's changed and not empty
+      if (
+        newEl.firstChild?.nodeType === 3 && // Node.TEXT_NODE
+        newEl.textContent.trim() !== curEl.textContent.trim()
+      ) {
+        curEl.textContent = newEl.textContent;
       }
-    });
-  });
-}
 
+      // 2. Update ATTRIBUTES if changed
+      Array.from(newEl.attributes).forEach(attr => {
+        if (curEl.getAttribute(attr.name) !== attr.value) {
+          curEl.setAttribute(attr.name, attr.value);
+        }
+      });
+    });
+  }
 
   _clear() {
     this._parentElement.innerHTML = '';
