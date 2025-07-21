@@ -1,10 +1,10 @@
 import icons from 'url:../../img/icons.svg';
-import View from './View';
+import View from './view';
 
 class PreviewView extends View {
   _parentElement = document.querySelector('');
 
-  _generateMarkupPreview() {
+  _generateMarkup() {
     const id = window.location.hash.slice(1);
 
     return `<li class="preview">
