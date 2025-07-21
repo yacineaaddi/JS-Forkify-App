@@ -56,12 +56,14 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
-  if (!state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else {
     model.deleteBookmark(model.state.recipe.id);
   }
   console.log(model.state.recipe);
   recipeView.update(model.state.recipe);
+  console.log(model.state.recipe);
+  console.log(model.state.bookmarks);
 };
 
 const init = function () {

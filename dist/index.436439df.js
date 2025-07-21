@@ -507,9 +507,12 @@ const controlServings = function(newServings) {
     /*recipeView.render(model.state.recipe);*/ _recipeViewJsDefault.default.update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
-    _modelJs.addBookmark(_modelJs.state.recipe);
+    if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
     console.log(_modelJs.state.recipe);
     _recipeViewJsDefault.default.update(_modelJs.state.recipe);
+    console.log(_modelJs.state.recipe);
+    console.log(_modelJs.state.bookmarks);
 };
 const init = function() {
     _recipeViewJsDefault.default.addHandlerRender(controlRecipes);
@@ -19617,6 +19620,8 @@ parcelHelpers.export(exports, "updateServings", ()=>updateServings
 );
 parcelHelpers.export(exports, "addBookmark", ()=>addBookmark
 );
+parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark
+);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
 var _helpers = require("./helpers");
@@ -19647,6 +19652,9 @@ const loadrecipe = async function(id) {
             cookingTime: recipe.cooking_time,
             ingredients: recipe.ingredients
         };
+        if (state.bookmarks.some((bookmark)=>bookmark.id === id
+        )) state.recipe.bookmarked = true;
+        else state.recipe.bookmarked = false;
     } catch (err) {
         throw err;
     }
@@ -19683,7 +19691,14 @@ const updateServings = function(newServings) {
 };
 const addBookmark = function(recipe) {
     state.bookmarks.push(recipe);
+    console.log(state.bookmarks);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const deleteBookmark = function(id) {
+    const index = state.bookmarks.findIndex((el)=>el.id === id
+    );
+    state.bookmarks.splice(index, 1);
+    if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
 
 },{"regenerator-runtime":"cH8Iq","./config":"beA2m","./helpers":"9l3Yy","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"beA2m":[function(require,module,exports) {
