@@ -22,7 +22,7 @@ class PaginationView extends View {
       this._data.results.length / this._data.resultsPerPage
     );
     console.log(numPages);
-    // Page 1, and there are other page
+    // Page 1, and there are other pages
     if (curPage === 1 && numPages > 1) {
       return `<button data-goto="${
         curPage + 1
@@ -44,7 +44,7 @@ class PaginationView extends View {
             <span>Page ${curPage - 1}</span>
           </button>`;
     }
-    // Other page
+    // Other pages
     if (curPage < numPages) {
       return `<button data-goto="${
         curPage - 1
@@ -63,7 +63,7 @@ class PaginationView extends View {
             </svg>
           </button>`;
     }
-    // Page 1, and there are no other page
+    // Page 1, and there are no other pages
     return '';
   }
 }
