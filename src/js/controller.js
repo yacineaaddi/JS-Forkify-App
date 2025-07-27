@@ -81,7 +81,8 @@ const controlAddRecipe = function (newRecipe) {
 const init = function () {
   bookmarkView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
-  recipeView.addHandlerUpdateServings(controlServings); // Updating Number of servings
+  // Updating Number of servings
+  recipeView.addHandlerUpdateServings(controlServings); 
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);

@@ -101,6 +101,7 @@ const init = function () {
 init();
 
 /* 
+// Clear Bookmarks function
 
 const clearBookmarks = function () {
   localStorage.clear('bookmarks');
