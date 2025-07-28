@@ -510,7 +510,8 @@ const controlPagination = function(goTopage) {
 // Updating Number of servings
 const controlServings = function(newServings) {
     _modelJs.updateServings(newServings);
-    /*recipeView.render(model.state.recipe);*/ _recipeViewJsDefault.default.update(_modelJs.state.recipe);
+    _recipeViewJsDefault.default.render(_modelJs.state.recipe);
+/*recipeView.update(model.state.recipe);*/ // Small bug needs to be fixed
 };
 const controlAddBookmark = function() {
     if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
@@ -529,7 +530,8 @@ const controlAddRecipe = function(newRecipe) {
 const init = function() {
     _bookmarkViewJsDefault.default.addHandlerRender(controlBookmarks);
     _recipeViewJsDefault.default.addHandlerRender(controlRecipes);
-    _recipeViewJsDefault.default.addHandlerUpdateServings(controlServings); // Updating Number of servings
+    // Updating Number of servings
+    _recipeViewJsDefault.default.addHandlerUpdateServings(controlServings);
     _recipeViewJsDefault.default.addHandlerAddBookmark(controlAddBookmark);
     _searchViewJsDefault.default.addHandlerSearch(controlSearchResults);
     _paginationViewJsDefault.default.addHandlerClick(controlPagination);
@@ -19725,6 +19727,7 @@ const init = function() {
     console.log(state.bookmarks);
 };
 init(); /* 
+// Clear Bookmarks function
 
 const clearBookmarks = function () {
   localStorage.clear('bookmarks');
@@ -19826,7 +19829,7 @@ class RecipeView extends _viewDefault.default {
         ].forEach((ev)=>window.addEventListener(ev, handler)
         );
     }
-    // Updating Number of servings
+    // Updating the Number of servings
     addHandlerUpdateServings(handler) {
         this._parentElement.addEventListener('click', function(e) {
             const btn = e.target.closest('.btn--update-servings');
@@ -20117,13 +20120,13 @@ class PaginationView extends _viewDefault.default {
         console.log(curPage);
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
         console.log(numPages);
-        // Page 1, and there are other page
+        // Page 1, and there are other pages
         if (curPage === 1 && numPages > 1) return `<button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">\n            <span>Page ${curPage + 1}</span>\n            <svg class="search__icon">\n              <use href="${_iconsSvgDefault.default}#icon-arrow-right"></use>\n            </svg>\n          </button>`;
         // Last page
         if (curPage === numPages && numPages > 1) return `<button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">\n            <svg class="search__icon">\n              <use href="${_iconsSvgDefault.default}#icon-arrow-left"></use>\n            </svg>\n            <span>Page ${curPage - 1}</span>\n          </button>`;
-        // Other page
+        // Other pages
         if (curPage < numPages) return `<button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">\n            <svg class="search__icon">\n              <use href="${_iconsSvgDefault.default}#icon-arrow-left"></use>\n            </svg>\n            <span>Page ${curPage - 1}</span>\n          </button>\n          <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">\n            <span>Page ${curPage + 1}</span>\n            <svg class="search__icon">\n              <use href="${_iconsSvgDefault.default}#icon-arrow-right"></use>\n            </svg>\n          </button>`;
-        // Page 1, and there are no other page
+        // Page 1, and there are no other pages
         return '';
     }
 }

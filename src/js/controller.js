@@ -55,8 +55,8 @@ const controlPagination = function (goTopage) {
 // Updating Number of servings
 const controlServings = function (newServings) {
   model.updateServings(newServings);
-  /*recipeView.render(model.state.recipe);*/
-  recipeView.update(model.state.recipe);
+  recipeView.render(model.state.recipe);
+  /*recipeView.update(model.state.recipe);*/ // Small bug needs to be fixed
 };
 
 const controlAddBookmark = function () {
@@ -75,14 +75,14 @@ const controlBookmarks = function () {
 };
 
 const controlAddRecipe = function (newRecipe) {
-  console.log(newRecipe);
+  model.uploadRecipe(newRecipe);
 };
 
 const init = function () {
   bookmarkView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   // Updating Number of servings
-  recipeView.addHandlerUpdateServings(controlServings); 
+  recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);

@@ -92,6 +92,23 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
+export const uploadRecipe = function (newRecipe) {
+  const ingredients = Object.entries(newRecipe)
+    .filter(ing => ing[0].startsWith('ingredients') && ing[1] !== '')
+    .map(ing => {
+      const ingArr = ing[1].replaceAll(' ', '').split(',');
+
+      if (ingArr.length !== 3)
+        throw new Error(
+          'Wrong ingredient format ! Please use the correct format :)'
+        );
+
+      const [quantity, unit, description] = ingArr;
+
+      return { quantity: quantity ? +quantity : null, unit, description };
+    });
+};
+
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (storage) state.bookmarks = JSON.parse(storage);
