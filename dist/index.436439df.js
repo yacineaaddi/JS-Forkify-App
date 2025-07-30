@@ -525,7 +525,7 @@ const controlBookmarks = function() {
     _bookmarkViewJsDefault.default.render(_modelJs.state.bookmarks);
 };
 const controlAddRecipe = function(newRecipe) {
-    console.log(newRecipe);
+    _modelJs.uploadRecipe(newRecipe);
 };
 const init = function() {
     _bookmarkViewJsDefault.default.addHandlerRender(controlBookmarks);
@@ -19638,6 +19638,8 @@ parcelHelpers.export(exports, "addBookmark", ()=>addBookmark
 );
 parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark
 );
+parcelHelpers.export(exports, "uploadRecipe", ()=>uploadRecipe
+);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
 var _helpers = require("./helpers");
@@ -19720,6 +19722,19 @@ const deleteBookmark = function(id) {
     state.bookmarks.splice(index, 1);
     if (id === state.recipe.id) state.recipe.bookmarked = false;
     persistBookmarks();
+};
+const uploadRecipe = function(newRecipe) {
+    const ingredients = Object.entries(newRecipe).filter((ing)=>ing[0].startsWith('ingredients') && ing[1] !== ''
+    ).map((ing)=>{
+        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        if (ingArr.length !== 3) throw new Error('Wrong ingredient format ! Please use the correct format :)');
+        const [quantity, unit, description] = ingArr;
+        return {
+            quantity: quantity ? +quantity : null,
+            unit,
+            description
+        };
+    });
 };
 const init = function() {
     const storage = localStorage.getItem('bookmarks');
