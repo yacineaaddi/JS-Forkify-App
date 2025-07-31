@@ -19654,22 +19654,28 @@ const state = {
     },
     bookmarks: []
 };
+const createRecipeObject = function(data) {
+    const { recipe  } = data.data;
+    return {
+        id: recipe.id,
+        title: recipe.title,
+        publisher: recipe.id,
+        sourceUrl: recipe.source_url,
+        image: recipe.image_url,
+        servings: recipe.servings,
+        cookingTime: recipe.cooking_time,
+        ingredients: recipe.ingredients,
+        ...recipe.key && {
+            key: recipe.key
+        }
+    };
+};
 const loadrecipe = async function(id) {
     try {
         const data = await _helpers.getJSON(`${_config.API_URL}/${id}`);
         /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
-    );*/ const { recipe  } = data.data;
-        state.recipe = {
-            id: recipe.id,
-            title: recipe.title,
-            publisher: recipe.id,
-            sourceUrl: recipe.source_url,
-            image: recipe.image_url,
-            servings: recipe.servings,
-            cookingTime: recipe.cooking_time,
-            ingredients: recipe.ingredients
-        };
+    );*/ state.recipe = createRecipeObject(data);
         if (state.bookmarks.some((bookmark)=>bookmark.id === id
         )) state.recipe.bookmarked = true;
         else state.recipe.bookmarked = false;
@@ -19723,23 +19729,40 @@ const deleteBookmark = function(id) {
     if (id === state.recipe.id) state.recipe.bookmarked = false;
     persistBookmarks();
 };
-const uploadRecipe = function(newRecipe) {
-    const ingredients = Object.entries(newRecipe).filter((ing)=>ing[0].startsWith('ingredients') && ing[1] !== ''
-    ).map((ing)=>{
-        const ingArr = ing[1].replaceAll(' ', '').split(',');
-        if (ingArr.length !== 3) throw new Error('Wrong ingredient format ! Please use the correct format :)');
-        const [quantity, unit, description] = ingArr;
-        return {
-            quantity: quantity ? +quantity : null,
-            unit,
-            description
+const uploadRecipe = async function(newRecipe) {
+    try {
+        const ingredients = Object.entries(newRecipe).filter((ing)=>ing[0].startsWith('ingredients') && ing[1] !== ''
+        ).map((ing)=>{
+            const ingArr = ing[1].replaceAll(' ', '').split(',');
+            if (ingArr.length !== 3) throw new Error('Wrong ingredient format ! Please use the correct format :)');
+            const [quantity, unit, description] = ingArr;
+            return {
+                quantity: quantity ? +quantity : null,
+                unit,
+                description
+            };
+        });
+        const recipe = {
+            title: newRecipe.title,
+            source_url: newRecipe.sourceUrl,
+            image_url: newRecipe.image,
+            publisher: newRecipe.publisher,
+            cooking_time: +newRecipe.cookingTime,
+            servings: +newRecipe.servings,
+            ingredients
         };
-    });
+        const data = await _helpers.sendJSON(`${_config.API_URL}?key=${_config.API_KEY}`, recipe);
+        state.recipe = createRecipeObject(data);
+        console.log(data);
+    } catch (err) {
+        throw err;
+    }
 };
 const init = function() {
     const storage = localStorage.getItem('bookmarks');
     if (storage) state.bookmarks = JSON.parse(storage);
     console.log(state.bookmarks);
+    addBookmark(state.recipe);
 };
 init(); /* 
 // Clear Bookmarks function
@@ -19752,7 +19775,7 @@ clearBookmarks();
 
 */ 
 
-},{"regenerator-runtime":"cH8Iq","./config":"beA2m","./helpers":"9l3Yy","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"beA2m":[function(require,module,exports) {
+},{"regenerator-runtime":"cH8Iq","./config":"beA2m","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./helpers":"9l3Yy"}],"beA2m":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL
@@ -19761,9 +19784,12 @@ parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC
 );
 parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE
 );
-const API_URL = 'http://forkify-api.herokuapp.com/api/v2/recipes/';
+parcelHelpers.export(exports, "API_KEY", ()=>API_KEY
+);
+const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/';
 const TIMEOUT_SEC = 10;
 const RES_PER_PAGE = 10;
+const API_KEY = 'a6464632-8692-49a5-8108-3cd1d837213c';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"JacNc":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -19802,6 +19828,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON
 );
+parcelHelpers.export(exports, "sendJSON", ()=>sendJSON
+);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _configJs = require("./config.js");
 const timeout = function(s) {
@@ -19814,6 +19842,26 @@ const timeout = function(s) {
 const getJSON = async function(url) {
     try {
         const fetchPro = fetch(url);
+        const res = await Promise.race([
+            fetchPro,
+            timeout(10)
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+const sendJSON = async function(url, uploadData) {
+    try {
+        const fetchPro = fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(uploadData)
+        });
         const res = await Promise.race([
             fetchPro,
             timeout(10)
