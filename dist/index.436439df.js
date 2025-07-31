@@ -19693,7 +19693,7 @@ const createRecipeObject = function(data) {
 };
 const loadrecipe = async function(id) {
     try {
-        const data = await _helpers.AJAX(`${_config.API_URL}/${id}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}/${id}?key=${KEY}`);
         /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/ state.recipe = createRecipeObject(data);
@@ -19707,14 +19707,17 @@ const loadrecipe = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const data = await _helpers.AJAX(`${_config.API_URL}?search=${query}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}?search=${query}&key=${KEY}`);
         console.log(data);
         state.search.results = data.data.recipes.map((rec)=>{
             return {
                 id: rec.id,
                 title: rec.title,
                 publisher: rec.publisher,
-                image: rec.image_url
+                image: rec.image_url,
+                ...rec.key && {
+                    key: rec.key
+                }
             };
         });
     /*state.search.page = 1;*/ } catch (err) {
@@ -19754,7 +19757,8 @@ const uploadRecipe = async function(newRecipe) {
     try {
         const ingredients = Object.entries(newRecipe).filter((ing)=>ing[0].startsWith('ingredients') && ing[1] !== ''
         ).map((ing)=>{
-            const ingArr = ing[1].replaceAll(' ', '').split(',');
+            const ingArr = ing[1].split(',').map((el)=>el.trim()
+            );
             if (ingArr.length !== 3) throw new Error('Wrong ingredient format ! Please use the correct format :)');
             const [quantity, unit, description] = ingArr;
             return {
@@ -20080,7 +20084,7 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class previewView extends _viewDefault.default {
     _generateMarkup() {
         const id = window.location.hash.slice(1);
-        return `<li class="preview">\n            <a class="preview__link" ${this._data.id === id ? 'preview__link--active' : ''} href="#${this._data.id}">\n              <figure class="preview__fig">\n                <img src="${this._data.image}" alt="${this._data.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${this._data.title}</h4>\n                <p class="preview__publisher">${this._data.publisher}</p>\n              </div>\n            </a>\n          </li>`;
+        return `<li class="preview">\n            <a class="preview__link" ${this._data.id === id ? 'preview__link--active' : ''} href="#${this._data.id}">\n              <figure class="preview__fig">\n                <img src="${this._data.image}" alt="${this._data.title}" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${this._data.title}</h4>\n                <p class="preview__publisher">${this._data.publisher}</p>\n                <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">\n                            <svg>\n                              <use href="${_iconsSvgDefault.default}#icon-user"></use>\n                            </svg>\n                          </div>\n              </div>\n            </a>\n          </li>`;
     }
 }
 exports.default = new previewView();
