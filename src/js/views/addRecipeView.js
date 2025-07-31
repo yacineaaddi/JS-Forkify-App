@@ -1,4 +1,4 @@
-import View from './view';
+import View from './View';
 import icons from 'url:../../img/icons.svg';
 
 class addRecipeView extends View {
@@ -7,6 +7,8 @@ class addRecipeView extends View {
   _overlay = document.querySelector('.overlay');
   _btnOpen = document.querySelector('.nav__btn--add-recipe');
   _btnClose = document.querySelector('.btn--close-modal');
+  _message = 'Recipe was successfully uploaded !';
+  _errorMessage = 'Recipe was not successfully uploaded !';
 
   constructor() {
     super();

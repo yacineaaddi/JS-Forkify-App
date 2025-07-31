@@ -536,6 +536,9 @@ const controlAddRecipe = async function(newRecipe) {
         _recipeViewJsDefault.default.render(_modelJs.state.recipe);
         //Success message
         _addRecipeViewJsDefault.default.renderMessage();
+        _bookmarkViewJsDefault.default.render(_modelJs.state.bookmarks);
+        //Change ID in URL
+        window.history.pushState(null, '', `${_modelJs.state.recipe.id}`);
         //Close form window
         setTimeout(function() {
             _addRecipeViewJsDefault.default._toggleWindow();
@@ -19690,7 +19693,7 @@ const createRecipeObject = function(data) {
 };
 const loadrecipe = async function(id) {
     try {
-        const data = await _helpers.getJSON(`${_config.API_URL}/${id}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}/${id}`);
         /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/ state.recipe = createRecipeObject(data);
@@ -19704,7 +19707,7 @@ const loadrecipe = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const data = await _helpers.getJSON(`${_config.API_URL}?search=${query}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}?search=${query}`);
         console.log(data);
         state.search.results = data.data.recipes.map((rec)=>{
             return {
@@ -19769,7 +19772,7 @@ const uploadRecipe = async function(newRecipe) {
             servings: +newRecipe.servings,
             ingredients
         };
-        const data = await _helpers.sendJSON(`${_config.API_URL}?key=${_config.API_KEY}`, recipe);
+        const data = await _helpers.AJAX(`${_config.API_URL}?key=${_config.API_KEY}`, recipe);
         state.recipe = createRecipeObject(data);
         console.log(data);
     } catch (err) {
@@ -20040,7 +20043,7 @@ class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     renderMessage(message = this._message) {
-        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
+        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${'message'}</p>\n          </div>`;
         this._clear;
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
@@ -20239,7 +20242,7 @@ exports.default = new bookmarkView();
 },{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./previewView":"knRyY","./view":"96b9L"}],"4NyJt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _view = require("./view");
+var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
@@ -20249,6 +20252,8 @@ class addRecipeView extends _viewDefault.default {
     _overlay = document.querySelector('.overlay');
     _btnOpen = document.querySelector('.nav__btn--add-recipe');
     _btnClose = document.querySelector('.btn--close-modal');
+    _message = 'Recipe was successfully uploaded !';
+    _errorMessage = 'Recipe was not successfully uploaded !';
     constructor(){
         super();
         this._addHandlerShowWindow();
@@ -20278,6 +20283,6 @@ class addRecipeView extends _viewDefault.default {
 }
 exports.default = new addRecipeView();
 
-},{"./view":"96b9L","url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire3a11")
+},{"url:../../img/icons.svg":"iwCpK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./View":"8rtS4"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire3a11")
 
 //# sourceMappingURL=index.436439df.js.map
