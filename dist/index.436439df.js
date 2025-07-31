@@ -471,6 +471,8 @@ var _bookmarkViewJs = require("./views/bookmarkView.js");
 var _bookmarkViewJsDefault = parcelHelpers.interopDefault(_bookmarkViewJs);
 var _addRecipeViewJs = require("./views/addRecipeView.js");
 var _addRecipeViewJsDefault = parcelHelpers.interopDefault(_addRecipeViewJs);
+var _configJs = require("./config.js");
+var _configJsDefault = parcelHelpers.interopDefault(_configJs);
 if (module.hot) module.hot.accept();
 const controlRecipes = async function() {
     try {
@@ -524,8 +526,24 @@ const controlAddBookmark = function() {
 const controlBookmarks = function() {
     _bookmarkViewJsDefault.default.render(_modelJs.state.bookmarks);
 };
-const controlAddRecipe = function(newRecipe) {
-    _modelJs.uploadRecipe(newRecipe);
+const controlAddRecipe = async function(newRecipe) {
+    try {
+        //Show loading spinner
+        _addRecipeViewJsDefault.default.renderSpinner();
+        //Upload the new recipe data
+        await _modelJs.uploadRecipe(newRecipe);
+        //Render recipe
+        _recipeViewJsDefault.default.render(_modelJs.state.recipe);
+        //Success message
+        _addRecipeViewJsDefault.default.renderMessage();
+        //Close form window
+        setTimeout(function() {
+            _addRecipeViewJsDefault.default._toggleWindow();
+        }, _configJsDefault.default * 1000);
+    } catch (err) {
+        console.log(err);
+        _addRecipeViewJsDefault.default.renderError(err.message);
+    }
 };
 const init = function() {
     _bookmarkViewJsDefault.default.addHandlerRender(controlBookmarks);
@@ -539,7 +557,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","./model.js":"6Yfb5","./views/recipeView.js":"9q0mt","./views/searchView.js":"51HTZ","./views/resultsView.js":"a6WEO","./views/paginationView.js":"c2v8w","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./views/bookmarkView.js":"1r5Cz","./views/addRecipeView.js":"4NyJt"}],"eIyVg":[function(require,module,exports) {
+},{"core-js/stable":"eIyVg","regenerator-runtime/runtime":"cH8Iq","./model.js":"6Yfb5","./views/recipeView.js":"9q0mt","./views/searchView.js":"51HTZ","./views/resultsView.js":"a6WEO","./views/paginationView.js":"c2v8w","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./views/bookmarkView.js":"1r5Cz","./views/addRecipeView.js":"4NyJt","./config.js":"beA2m"}],"eIyVg":[function(require,module,exports) {
 'use strict';
 require('../modules/es.symbol');
 require('../modules/es.symbol.description');
