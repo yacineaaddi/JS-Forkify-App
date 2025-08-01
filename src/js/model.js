@@ -28,7 +28,7 @@ const createRecipeObject = function (data) {
 };
 export const loadrecipe = async function (id) {
   try {
-    const data = await AJAX(`${API_URL}/${id}?key=${KEY}`);
+    const data = await AJAX(`${API_URL}/${id}?key=${API_KEY}`);
     /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/
@@ -45,7 +45,7 @@ export const loadrecipe = async function (id) {
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
-    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${API_KEY}`);
     console.log(data);
 
     state.search.results = data.data.recipes.map(rec => {

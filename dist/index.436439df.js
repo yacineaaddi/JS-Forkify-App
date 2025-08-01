@@ -520,7 +520,6 @@ const controlAddBookmark = function() {
     else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
     _recipeViewJsDefault.default.update(_modelJs.state.recipe);
     _bookmarkViewJsDefault.default.render(_modelJs.state.bookmarks);
-    console.log('done');
     console.log(_modelJs.state.bookmarks);
 };
 const controlBookmarks = function() {
@@ -536,6 +535,7 @@ const controlAddRecipe = async function(newRecipe) {
         _recipeViewJsDefault.default.render(_modelJs.state.recipe);
         //Success message
         _addRecipeViewJsDefault.default.renderMessage();
+        //Render bookmark view
         _bookmarkViewJsDefault.default.render(_modelJs.state.bookmarks);
         //Change ID in URL
         window.history.pushState(null, '', `${_modelJs.state.recipe.id}`);
@@ -19693,7 +19693,7 @@ const createRecipeObject = function(data) {
 };
 const loadrecipe = async function(id) {
     try {
-        const data = await _helpers.AJAX(`${_config.API_URL}/${id}?key=${KEY}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}/${id}?key=${_config.API_KEY}`);
         /*const data = await getJSON(
       'http://forkify-api.herokuapp.com/api/v2/recipes/664c8f193e7aa067e94e866f'
     );*/ state.recipe = createRecipeObject(data);
@@ -19707,7 +19707,7 @@ const loadrecipe = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const data = await _helpers.AJAX(`${_config.API_URL}?search=${query}&key=${KEY}`);
+        const data = await _helpers.AJAX(`${_config.API_URL}?search=${query}&key=${_config.API_KEY}`);
         console.log(data);
         state.search.results = data.data.recipes.map((rec)=>{
             return {
@@ -19851,9 +19851,7 @@ exports.export = function(dest, destName, get) {
 },{}],"9l3Yy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getJSON", ()=>getJSON
-);
-parcelHelpers.export(exports, "sendJSON", ()=>sendJSON
+parcelHelpers.export(exports, "AJAX", ()=>AJAX
 );
 var _regeneratorRuntime = require("regenerator-runtime");
 var _configJs = require("./config.js");
@@ -19864,29 +19862,15 @@ const timeout = function(s) {
         }, s * 1000);
     });
 };
-const getJSON = async function(url) {
+const AJAX = async function(url, uploadData) {
     try {
-        const fetchPro = fetch(url);
-        const res = await Promise.race([
-            fetchPro,
-            timeout(10)
-        ]);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message}(${res.status})`);
-        return data;
-    } catch (err) {
-        throw err;
-    }
-};
-const sendJSON = async function(url, uploadData) {
-    try {
-        const fetchPro = fetch(url, {
+        const fetchPro = uploadData ? fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(uploadData)
-        });
+        }) : fetch(url);
         const res = await Promise.race([
             fetchPro,
             timeout(10)
@@ -19897,7 +19881,35 @@ const sendJSON = async function(url, uploadData) {
     } catch (err) {
         throw err;
     }
+}; /*
+export const getJSON = async function (url) {
+  try {
+    const fetchPro = fetch(url);
+    const res = await Promise.race([fetchPro, timeout(10)]);
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
 };
+
+export const sendJSON = async function (url, uploadData) {
+  try {
+    const fetchPro = fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(uploadData),
+    });
+
+    const res = await Promise.race([fetchPro, timeout(10)]);
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};*/ 
 
 },{"regenerator-runtime":"cH8Iq","./config.js":"beA2m","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"9q0mt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
