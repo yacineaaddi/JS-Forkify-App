@@ -8,15 +8,15 @@ _A live demo link will be added here soon._
 
 ## ✨ Features
 
-- Recipe Search: Search for thousands of recipes by keywords.
+- **Recipe Search** : Search for thousands of recipes by keywords.
 
-- Recipe Details: View cooking instructions, ingredients, and preparation steps.
+- **Recipe Details** : View cooking instructions, ingredients, and preparation steps.
 
-- Bookmarking: Save favorite recipes for quick access.
+- **Bookmarking**: Save favorite recipes for quick access.
 
-- Servings Adjustment: Dynamically adjust ingredient quantities based on servings.
+- **Servings Adjustment**: Dynamically adjust ingredient quantities based on servings.
 
-- Responsive Design: Works across various devices and screen sizes.
+- **Responsive Design**: Works across various devices and screen sizes.
 
 ## ⚙️ Installation
 
@@ -45,13 +45,13 @@ _A live demo link will be added here soon._
 
 ## 🛠️ Technologies Used
 
-- 💻 HTML: Structure of the web pages.
+- 💻 **HTML**: Structure of the web pages.
 
-- 🎨 CSS: Styling and layout.
+- 🎨 **CSS**: Styling and layout.
 
-- ⚙️ JavaScript: Application logic and API integration.
+- ⚙️ **JavaScript**: Application logic and API integration.
 
-- 🌐 Forkify API: Recipe data source.
+- 🌐 **Forkify API**: Recipe data source.
 
 ## 📁 Folder Structure
 
