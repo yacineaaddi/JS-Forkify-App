@@ -1,6 +1,6 @@
-# React Task Tracker
+# JS Forkify App
 
-A simple task tracking application built with HTML, CSS, React, and JavaScript. This app allows users to manage their tasks effectively and includes a timer to track the duration spent on each task.
+A recipe search application built with HTML, CSS, and JavaScript. This app allows users to search for recipes using the Forkify API, view detailed cooking instructions, bookmark favorites, and adjust servings.
 
 ## Demo
 
@@ -8,24 +8,28 @@ _A live demo link will be added here soon._
 
 ## Features
 
-- Task Management : Add, view, and manage tasks efficiently.
+- Recipe Search: Search for thousands of recipes by keywords.
 
-- Timer Functionality : Track the time spent on individual tasks to enhance productivity.
+- Recipe Details: View cooking instructions, ingredients, and preparation steps.
 
-- Responsive Design : Ensures usability across various devices and screen sizes.
+- Bookmarking: Save favorite recipes for quick access.
+
+- Servings Adjustment: Dynamically adjust ingredient quantities based on servings.
+
+- Responsive Design: Works across various devices and screen sizes.
 
 ## Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yacineaaddi/React-Task-Tracker.git
+   git clone https://github.com/yacineaaddi/JS-Forkify-App.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd React-Task-Tracker
+   cd JS-Forkify-App
    ```
 
 3. Install dependencies:
@@ -41,34 +45,30 @@ _A live demo link will be added here soon._
 
 ## Technologies Used
 
-- HTML : For structuring the web content.
+- HTML: Structure of the web pages.
 
-- CSS : For styling the application.
+- CSS: Styling and layout.
 
-- JavaScript : For implementing dynamic functionalities.
+- JavaScript: Application logic and API integration.
 
-- React : For building the user interface components.
+- Forkify API: Recipe data source.
 
 ## Folder Structure
 
 ```
-React-Task-Tracker/
-├── public/
-│ ├── index.html
-│ └── favicon.ico
-├── src/
-│ ├── components/
-│ │ ├── Header.js
-│ │ ├── Task.js
-│ │ └── TaskList.js
-│ ├── App.js
-│ ├── index.js
-│ └── styles.css
-├── package.json
-├── package-lock.json
+JS-Forkify-App/
+├── img/
+├── js/
+│   ├── config.js
+│   ├── controller.js
+│   ├── helpers.js
+│   ├── model.js
+│   ├── views/
+│   └── ...
+├── index.html
+├── style.css
 ├── README.md
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
 ## Contributing
@@ -83,4 +83,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Yacine Aaddi - [yacineaaddi@gmail.com](mailto:yacineaaddi@gmail.com)
 
-Project Link: [https://github.com/yacineaaddi/React-Task-Tracker](https://github.com/yacineaaddi/React-Task-Tracker)
+Project Link: [https://github.com/yacineaaddi/JS-Forkify-App](https://github.com/yacineaaddi/JS-Forkify-App)
