@@ -1,12 +1,12 @@
-# JS Forkify App
+# 📦 JS Forkify App
 
 A recipe search application built with HTML, CSS, and JavaScript. This app allows users to search for recipes using the Forkify API, view detailed cooking instructions, bookmark favorites, and adjust servings.
 
-## Demo
+## 🔗 Demo
 
 _A live demo link will be added here soon._
 
-## Features
+## ✨ Features
 
 - Recipe Search: Search for thousands of recipes by keywords.
 
@@ -18,7 +18,7 @@ _A live demo link will be added here soon._
 
 - Responsive Design: Works across various devices and screen sizes.
 
-## Installation
+## ⚙️ Installation
 
 1. Clone the repository:
 
@@ -43,17 +43,17 @@ _A live demo link will be added here soon._
    npm start
    ```
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-- HTML: Structure of the web pages.
+- 💻 HTML: Structure of the web pages.
 
-- CSS: Styling and layout.
+- 🎨 CSS: Styling and layout.
 
-- JavaScript: Application logic and API integration.
+- ⚙️ JavaScript: Application logic and API integration.
 
-- Forkify API: Recipe data source.
+- 🌐 Forkify API: Recipe data source.
 
-## Folder Structure
+## 📁 Folder Structure
 
 ```
 JS-Forkify-App/
@@ -71,15 +71,15 @@ JS-Forkify-App/
 └── LICENSE
 ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## 📬 Contact
 
 Yacine Aaddi - [yacineaaddi@gmail.com](mailto:yacineaaddi@gmail.com)
 
