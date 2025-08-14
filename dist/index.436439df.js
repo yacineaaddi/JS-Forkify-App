@@ -20167,7 +20167,7 @@ class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     renderMessage(message = this._message) {
-        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${message}</p>\n          </div>`;
+        const markup = `<div class="message">\n            <div>\n              <svg>\n                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>\n              </svg>\n            </div>\n            <p>${'message'}</p>\n          </div>`;
         this._clear;
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
